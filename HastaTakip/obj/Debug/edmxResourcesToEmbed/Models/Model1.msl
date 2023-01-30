@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DbHastaKayitModelStoreContainer" CdmEntityContainer="DbHastaKayitEntities2">
+    <EntitySetMapping Name="VitalSignMeasurementValues">
+      <EntityTypeMapping TypeName="DbHastaKayitModel.VitalSignMeasurementValues">
+        <MappingFragment StoreEntitySet="VitalSignMeasurementValues">
+          <ScalarProperty Name="VitalBulguODID" ColumnName="VitalBulguODID" />
+          <ScalarProperty Name="OlcumDeğeri" ColumnName="OlcumDeğeri" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="VitalBulguID" ColumnName="VitalBulguID" />
+          <ScalarProperty Name="HastaID" ColumnName="HastaID" />
+          <ScalarProperty Name="OlcumZamani" ColumnName="OlcumZamani" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VitalSigns">
+      <EntityTypeMapping TypeName="DbHastaKayitModel.VitalSigns">
+        <MappingFragment StoreEntitySet="VitalSigns">
+          <ScalarProperty Name="VitalBulguID" ColumnName="VitalBulguID" />
+          <ScalarProperty Name="VitalBulguAdi" ColumnName="VitalBulguAdi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

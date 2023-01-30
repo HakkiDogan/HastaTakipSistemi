@@ -1,0 +1,72 @@
+﻿@using EntityLayer.Concrete
+@model List<Patient>
+@{
+    ViewBag.Title = "MyPatient";
+    Layout = "~/Views/Shared/_DoctorLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<body class="hold-transition sidebar-mini">
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Hasta Listesi</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <!-- /.card-header -->
+                        <div class="card-body table-responsive p-0">
+                            <table class="table table-hover text-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>TC</th>
+                                        <th>Ad</th>
+                                        <th>Soyad</th>
+                                        <th>Doğum Tarihi</th>
+                                        <th>Cinsiyet</th>
+                                        <th>Adres</th>
+                                        <th>Tel</th>
+                                        <th>Hasta Değerleri</th>
+                                        <th>Yeni VB Ekle</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.TC</td>
+                                            <td>@item.Ad</td>
+                                            <td>@item.Soyad</td>
+                                            <td>@item.DogumTarihi</td>
+                                            <td>@item.Cinsiyet</td>
+                                            <td>@item.Adres</td>
+                                            <td>@item.Tel</td>
+                                            <td><a href="/VitalSignMeasurement/VitalSignByPatient/@item.HastaID" class="btn btn-success">VB Değerleri</a></td>
+                                            <td><a href="/DoctorPanel/AddVitalSign/@item.HastaID" class="btn btn-primary">VB Ekle</a></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+
+

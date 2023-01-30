@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewBag.Title = "Solunum";
+    Layout = "~/Views/Shared/_DoctorLayout.cshtml";
+}
+
+<br />
+@Scripts.Render("~/bundles/jquery")
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<figure class="highcharts-figure">
+    <div id="container3"></div>
+</figure>
+<link href="~/Grafik/Grafik.css" rel="stylesheet" />
+<script>
+    $(document).ready(function () {
+        $.getJSON("/VitalSignMeasurement/GetSolunum/@TempData["id"]", function (data) {
+            var deger = []
+            var date = []
+            var min = 90;
+
+            for (var i = 0; i < data.length; i++) {
+                deger.push(data[i].olcum);
+                date.push(data[i].tarih);
+            }
+
+            Highcharts.chart('container3', {
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: 'Solunum Ölçümleri'
+                },
+                xAxis: {
+                    categories: date,
+                    line: min
+                },
+                yAxis: {
+                    title: {
+                        text: 'Solunum(br/min)'
+                    },
+                    plotLines: [{
+                        id: 'limit-min',
+                        color: '#FF0000',
+                        dashStyle: 'ShortDash',
+                        width: 2,
+                        value: 15,
+                        zIndex: 0
+                    }, {
+                        id: 'limit-max',
+                        color: '#008000',
+                        dashStyle: 'ShortDash',
+                        width: 2,
+                        value: 35,
+                        zIndex: 0
+                    }]
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true
+                        },
+                        enableMouseTracking: false
+                    }
+                },
+                series: [{
+                    name: 'Solunum',
+                    data: deger
+                }]
+
+            });
+        });
+    });
+</script>
+

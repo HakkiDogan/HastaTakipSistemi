@@ -1,0 +1,90 @@
+﻿@using EntityLayer.Concrete
+@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<PatientArrival>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<body class="hold-transition sidebar-mini">
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Hasta Gelişleri</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <!-- /.card-header -->
+                        <div class="card-body table-responsive p-0">
+                            <table class="table table-hover text-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>TC</th>
+                                        <th>Hasta Adı</th>
+                                        <th>Giriş Tarihi</th>
+                                        <th>Çıkış Tarihi</th>
+                                        <th>Servis</th>
+                                        <th>Doktor</th>
+                                        <th>Hasta Çıkışı</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.Patient.TC</td>
+                                            <td>@item.Patient.Ad @item.Patient.Soyad</td>
+                                            <td>@item.GirisTarihi.ToString("dd/MM/yyyy HH:mm")</td>
+                                            <td>@item.CıkısTarihi</td>
+                                            <td>@item.Service.ServisAdi</td>
+                                            <td>@item.Doctor.Ad @item.Doctor.Soyad</td>
+                                            @if (item.CıkısTarihi == null)
+                                            {
+                                                <td><a href="/PatientArrival/ExitPatient/@item.HastaGelisiID" class="btn btn-danger">Hasta Çıkış Yap</a></td>
+
+                                            }
+                                            else
+                                            {
+                                                <td><button class="btn btn-info">Hasta Çıkışı Yapıldı</button></td>
+
+                                            }
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+<div class="col-12">
+    <div class="align-content-lg-center">
+        @Html.PagedListPager((IPagedList)Model, p => Url.Action("Index", new { p }), new PagedListRenderOptions
+        {
+        LiElementClasses = new List<string>
+        { "page-link"}
+        })
+    </div>
+</div>
+
+
+
+

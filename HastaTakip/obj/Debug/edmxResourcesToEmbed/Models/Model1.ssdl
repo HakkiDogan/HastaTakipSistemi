@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DbHastaKayitModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="VitalSignMeasurementValues">
+    <Key>
+      <PropertyRef Name="VitalBulguODID" />
+    </Key>
+    <Property Name="VitalBulguODID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OlcumDeğeri" Type="float" Nullable="false" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+    <Property Name="VitalBulguID" Type="int" Nullable="false" />
+    <Property Name="HastaID" Type="int" Nullable="false" />
+    <Property Name="OlcumZamani" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VitalSigns">
+    <Key>
+      <PropertyRef Name="VitalBulguID" />
+    </Key>
+    <Property Name="VitalBulguID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="VitalBulguAdi" Type="nvarchar" MaxLength="30" />
+  </EntityType>
+  <Association Name="FK_dbo_VitalSignMeasurementValues_dbo_VitalSigns_VitalBulguID">
+    <End Role="VitalSigns" Type="Self.VitalSigns" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="VitalSignMeasurementValues" Type="Self.VitalSignMeasurementValues" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VitalSigns">
+        <PropertyRef Name="VitalBulguID" />
+      </Principal>
+      <Dependent Role="VitalSignMeasurementValues">
+        <PropertyRef Name="VitalBulguID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DbHastaKayitModelStoreContainer">
+    <EntitySet Name="VitalSignMeasurementValues" EntityType="Self.VitalSignMeasurementValues" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VitalSigns" EntityType="Self.VitalSigns" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_dbo_VitalSignMeasurementValues_dbo_VitalSigns_VitalBulguID" Association="Self.FK_dbo_VitalSignMeasurementValues_dbo_VitalSigns_VitalBulguID">
+      <End Role="VitalSigns" EntitySet="VitalSigns" />
+      <End Role="VitalSignMeasurementValues" EntitySet="VitalSignMeasurementValues" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

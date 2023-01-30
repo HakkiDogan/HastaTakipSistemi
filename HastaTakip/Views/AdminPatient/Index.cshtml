@@ -1,0 +1,89 @@
+﻿@using EntityLayer.Concrete
+@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Patient>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<body class="hold-transition sidebar-mini">
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Hasta Listesi</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <!-- /.card-header -->
+                        <div class="card-body table-responsive p-0">
+                            <table class="table table-hover text-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>TC</th>
+                                        <th>Ad</th>
+                                        <th>Soyad</th>
+                                        <th>Doğum Tarihi</th>
+                                        <th>Cinsiyet</th>
+                                        <th>Adres</th>
+                                        <th>Tel</th>
+                                        <th>Güncelle</th>
+                                        <th>Hasta Gelişi</th>
+                                        <th>Hasta Değerleri</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.TC</td>
+                                            <td>@item.Ad</td>
+                                            <td>@item.Soyad</td>
+                                            <td>@item.DogumTarihi</td>
+                                            <td>@item.Cinsiyet</td>
+                                            <td>@item.Adres</td>
+                                            <td>@item.Tel</td>
+                                            <td><a href="/AdminPatient/EditPatient/@item.HastaID" class="btn btn-warning">Güncelle</a></td>
+                                            <td><a href="/PatientArrival/AddPatientArrival/@item.HastaID" class="btn btn-primary">Hasta Gelişi Ekle</a></td>
+                                            <td><a href="/VitalSignMeasurement/AdminVitalSignByPatient/@item.HastaID" class="btn btn-success">VB Değerleri</a></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <a href="/AdminPatient/AddPatient" class="btn btn-info">Hasta Ekle</a>
+                        </div>
+                        <div>
+                            @Html.PagedListPager((IPagedList)Model, p => Url.Action("Index", new { p }), new PagedListRenderOptions
+                            {
+                            LiElementClasses = new List<string>
+                            { "page-link"}
+                            })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+
+
+

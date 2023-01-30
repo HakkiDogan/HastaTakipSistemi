@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewBag.Title = "AdminSisTan";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<br />
+@Scripts.Render("~/bundles/jquery")
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<figure class="highcharts-figure">
+    <div id="container1"></div>
+</figure>
+<link href="~/Grafik/Grafik.css" rel="stylesheet" />
+
+<script>
+    $(document).ready(function () {
+        $.getJSON("/VitalSignMeasurement/GetSisTan/@TempData["id"]", function (data) {
+            var deger = []
+            var date = []
+            for (var i = 0; i < data.length; i++) {
+                deger.push(data[i].olcum);
+                date.push(data[i].tarih);
+            }
+
+            Highcharts.chart('container1', {
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: 'Sistolik Tansiyon Ölçümleri'
+                },
+                xAxis: {
+                    categories: date
+                },
+                yAxis: {
+                    title: {
+                        text: 'Sistolik Tansiyon(mm/Hg)'
+                    },
+                    plotLines: [{
+                        id: 'limit-min',
+                        color: '#FF0000',
+                        dashStyle: 'ShortDash',
+                        width: 2,
+                        value: 90,
+                        zIndex: 0
+                    }, {
+                        id: 'limit-max',
+                        color: '#008000',
+                        dashStyle: 'ShortDash',
+                        width: 2,
+                        value: 150,
+                        zIndex: 0
+                    }]
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true
+                        },
+                        enableMouseTracking: false
+                    }
+                },
+                series: [{
+                    name: 'Sistolik Tansiyon',
+                    data: deger
+                }]
+
+            });
+        });
+    });
+</script>
+

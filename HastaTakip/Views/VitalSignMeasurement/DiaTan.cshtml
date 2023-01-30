@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewBag.Title = "DiaTan";
+    Layout = "~/Views/Shared/_DoctorLayout.cshtml";
+}
+
+<br />
+@Scripts.Render("~/bundles/jquery")
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<figure class="highcharts-figure">
+    <div id="container2"></div>
+</figure>
+<link href="~/Grafik/Grafik.css" rel="stylesheet" />
+<script>
+    $(document).ready(function () {
+        $.getJSON("/VitalSignMeasurement/GetDiaTan/@TempData["id"]", function (data) {
+            var deger = []
+            var date = []
+
+            for (var i = 0; i < data.length; i++) {
+                deger.push(data[i].olcum);
+                date.push(data[i].tarih);
+            }
+
+            Highcharts.chart('container2', {
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: 'Diastolik Tansiyon'
+                },
+                xAxis: {
+                    categories: date
+                },
+                yAxis: {
+                    title: {
+                        text: 'Diastolik Tansiyon(mm/Hg)'
+                    },
+                    plotLines: [{
+                        id: 'limit-min',
+                        color: '#FF0000',
+                        dashStyle: 'ShortDash',
+                        width: 2,
+                        value: 60,
+                        zIndex: 0
+                    }, {
+                        id: 'limit-max',
+                        color: '#008000',
+                        dashStyle: 'ShortDash',
+                        width: 2,
+                        value: 85,
+                        zIndex: 0
+                    }]
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true
+                        },
+                        enableMouseTracking: false
+                    }
+                },
+                series: [{
+                    name: 'Diastolik Tansiyon',
+                    data: deger
+                }]
+
+            });
+        });
+    });
+</script>
+

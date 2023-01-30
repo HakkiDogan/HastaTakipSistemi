@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DbHastaKayitModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="VitalSignMeasurementValues">
+    <Key>
+      <PropertyRef Name="VitalBulguODID" />
+    </Key>
+    <Property Name="VitalBulguODID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OlcumDeğeri" Type="Double" Nullable="false" />
+    <Property Name="Status" Type="Boolean" Nullable="false" />
+    <Property Name="VitalBulguID" Type="Int32" Nullable="false" />
+    <Property Name="HastaID" Type="Int32" Nullable="false" />
+    <Property Name="OlcumZamani" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="VitalSigns" Relationship="Self.FK_dbo_VitalSignMeasurementValues_dbo_VitalSigns_VitalBulguID" FromRole="VitalSignMeasurementValues" ToRole="VitalSigns" />
+  </EntityType>
+  <EntityType Name="VitalSigns">
+    <Key>
+      <PropertyRef Name="VitalBulguID" />
+    </Key>
+    <Property Name="VitalBulguID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="VitalBulguAdi" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="VitalSignMeasurementValues" Relationship="Self.FK_dbo_VitalSignMeasurementValues_dbo_VitalSigns_VitalBulguID" FromRole="VitalSigns" ToRole="VitalSignMeasurementValues" />
+  </EntityType>
+  <Association Name="FK_dbo_VitalSignMeasurementValues_dbo_VitalSigns_VitalBulguID">
+    <End Role="VitalSigns" Type="Self.VitalSigns" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="VitalSignMeasurementValues" Type="Self.VitalSignMeasurementValues" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VitalSigns">
+        <PropertyRef Name="VitalBulguID" />
+      </Principal>
+      <Dependent Role="VitalSignMeasurementValues">
+        <PropertyRef Name="VitalBulguID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DbHastaKayitEntities4" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="VitalSignMeasurementValues" EntityType="Self.VitalSignMeasurementValues" />
+    <EntitySet Name="VitalSigns" EntityType="Self.VitalSigns" />
+    <AssociationSet Name="FK_dbo_VitalSignMeasurementValues_dbo_VitalSigns_VitalBulguID" Association="Self.FK_dbo_VitalSignMeasurementValues_dbo_VitalSigns_VitalBulguID">
+      <End Role="VitalSigns" EntitySet="VitalSigns" />
+      <End Role="VitalSignMeasurementValues" EntitySet="VitalSignMeasurementValues" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,114 @@
+﻿
+@{
+    ViewBag.Title = "AdminVitalSignByPatient";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<body class="hold-transition sidebar-mini">
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Hasta Vital Bulgu Değerleri</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <!-- /.card-header -->
+                        <div class="card-body table-responsive p-0">
+                            <table class="table table-hover text-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>Vital Bulgu</th>
+                                        <th>Son</th>
+                                        <th><center>Tarih</center></th>
+                                        <th><center>Son 10 Gün(min-maks)</center></th>
+                                        <th><center>Son 24 Saat(min-maks)</center></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr>
+                                        <td>Solunum(br/min)</td>
+                                        <td>@ViewBag.sonsolunum</td>
+                                        <td><center>@ViewBag.sonsolunumtarih</center></td>
+                                        <td><center>@ViewBag.son10minsolunum-@ViewBag.son10maxsolunum</center></td>
+                                        <td><center>@ViewBag.son1minsolunum-@ViewBag.son1maxsolunum</center></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>Ateş(°C)</td>
+                                        <td>@ViewBag.sonates</td>
+                                        <td><center>@ViewBag.sonatestarih</center></td>
+                                        <td><center>@ViewBag.son10minates-@ViewBag.son10maxates</center></td>
+                                        <td><center>@ViewBag.son1minates-@ViewBag.son1maxates</center></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>Sistolik Tansiyon(mm/Hg)</td>
+                                        <td>@ViewBag.sonsistolik</td>
+                                        <td><center>@ViewBag.sonsistoliktarih</center></td>
+                                        <td><center>@ViewBag.son10minsistolik-@ViewBag.son10maxsistolik</center></td>
+                                        <td><center>@ViewBag.son1minsistolik-@ViewBag.son1maxsistolik</center></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Diastolik Tansiyon(mm/Hg)</td>
+                                        <td>@ViewBag.sondiastolik</td>
+                                        <td><center>@ViewBag.sondiastoliktarih</center></td>
+                                        <td><center>@ViewBag.son10mindiastolik-@ViewBag.son10maxdiastolik</center></td>
+                                        <td><center>@ViewBag.son1mindiastolik-@ViewBag.son1maxdiastolik</center></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nabız(bpm)</td>
+                                        <td>@ViewBag.sonnabız</td>
+                                        <td><center>@ViewBag.sonnabıztarih</center></td>
+                                        <td><center>@ViewBag.son10minnabız-@ViewBag.son10maxnabız</center></td>
+                                        <td><center>@ViewBag.son1minnabız-@ViewBag.son1maxnabız</center></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Kan Şekeri(Stick)(mg/dl)</td>
+                                        <td>@ViewBag.sonkansekeri</td>
+                                        <td><center>@ViewBag.sonkansekeritarih</center></td>
+                                        <td><center>@ViewBag.son10minkansekeri-@ViewBag.son10maxkansekeri</center></td>
+                                        <td><center>@ViewBag.son1minkansekeri-@ViewBag.son1maxkansekeri</center></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Oksijen Saturasyon Takibi(%)</td>
+                                        <td>@ViewBag.sonoksijen</td>
+                                        <td><center>@ViewBag.sonoksijentarih</center></td>
+                                        <td><center>@ViewBag.son10minoksijen-@ViewBag.son10maxoksijen</center></td>
+                                        <td><center>@ViewBag.son1minoksijen-@ViewBag.son1maxoksijen</center></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+<div class="row">
+    <div class="col-10">
+        <a href="/VitalSignMeasurement/AdminSisTan/@ViewBag.id" class="btn btn-primary">Sistolik tansiyon Grafik</a>
+        <a href="/VitalSignMeasurement/AdminAtes/@ViewBag.id" class="btn btn-primary">Ateş Grafik</a>
+        <a href="/VitalSignMeasurement/AdminDiaTan/@ViewBag.id" class="btn btn-primary">Diastolik Tansiyon Grafik</a>
+        <a href="/VitalSignMeasurement/AdminSolunum/@ViewBag.id" class="btn btn-primary">Solunum Grafik</a>
+    </div>
+    <div class="col-2">
+        <a href="/VitalSignMeasurement/AddVitalSignAll/@ViewBag.id" class="btn btn-success">Makineye Bağla</a>
+    </div>
+</div>
+
